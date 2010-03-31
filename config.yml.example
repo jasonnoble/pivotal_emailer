@@ -1,0 +1,4 @@
+token: your_pivotal_token_here # Available at https://www.pivotaltracker.com/profile
+projects:
+  - project_id  # Project Name
+  - project_id  # Project Name
