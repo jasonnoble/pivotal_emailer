@@ -1,6 +1,20 @@
 
-This project will email stake holders when their Pivotal stories
-have been finished.
+Our Pivotal Work Flow Overview
+	Stake Holder (requested_by) creates a story
+	Story is moved to backlog during Iteration Planning Meeting
+	Designer/Developer works on story (Clicks Start)
+	After a story is finished, Designer/Developer clicks Finish
+	Cruise Control auto deploys the code to an acceptance environment
+	Stake Holder verifies the story is working correctly
+	Stake Holder adds any comments and adds a sh_accepted tag to the story
+	Stake Holder should change status to rejected if they need changes made
+	
+This script will email stake holders when their Pivotal stories
+have been finished or delivered, and they do not have a sh_accepted label.
+
+It will email the person who requested the story, of if that account is
+inactive in Pivotal, it will email config['invalid_users'] to let them
+know the story needs to be assigned to a stake holder.
 
 Quick Start
 ====================================================================
