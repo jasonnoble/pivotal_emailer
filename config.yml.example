@@ -2,3 +2,6 @@ token: your_pivotal_token_here # Available at https://www.pivotaltracker.com/pro
 projects:
   - project_id  # Project Name
   - project_id  # Project Name
+from:
+  email: email@domain.com
+  name: Your Ruby Dev Team

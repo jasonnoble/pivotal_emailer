@@ -31,7 +31,7 @@ config['projects'].each do |project_id|
 end
 
 shareholder_outstanding.each do |email, stories|
-  from = "Ruby Team <railsdev@rentals.com>"
+  from = config['from']['email']
   # to = "#{shareholder_emails[email].name} <#{email}>"
   # TODO This needs to handle inactive users
   to = "jason.noble@primedia.com"
@@ -39,7 +39,7 @@ shareholder_outstanding.each do |email, stories|
   
   message = <<-END
 
-Your Ruby Development team has completed one or more of the stories you requested.
+#{config['from']['name']} has completed one or more of the stories you requested.
 Each of these stories require your acceptance in order to be complete.
 
 Stories needing acceptance:
@@ -63,14 +63,13 @@ correctly.  You then need to change the status of the story from Finished/Delive
 If you have any questions, please let a member of the Ruby team know.
 
 Thanks,
-Your Ruby Devs
+#{config['from']['name']}
   END
 
-  puts email, "#######################", message, ''
+  puts "From: #{from}"
+  puts "To: #{to}"
+  puts "Subject: #{subject}"
+  puts
+  puts message
   #Pony.mail(:to => to, :from => from, :subject => subject, :body => message)
 end
-  
-__END__
-
-rentals = PivotalTracker::Project.find(22353)
-rentals.stories.all(:current_state => 'finished').sort{|a,b| a.name <=> b.name}.each {|s| puts s.name} && nil
