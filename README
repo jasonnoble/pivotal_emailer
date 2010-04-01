@@ -1,3 +1,10 @@
 
 This project will email stake holders when their Pivotal stories
 have been finished.
+
+Quick Start
+====================================================================
+cp config.yml.example config.yml
+vi config.yml
+ruby ./pivotal_emailer.rb
+====================================================================

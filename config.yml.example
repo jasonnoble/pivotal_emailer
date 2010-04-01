@@ -5,3 +5,6 @@ projects:
 from:
   email: email@domain.com
   name: Your Ruby Dev Team
+inactive_email: email@domain.com
+subject: Subject of Emails # optional
+inactive_subject: Subject of Emails # optional - subject for emails with inactive requested_by accounts
