@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'pivotal-tracker'
 require 'yaml'
+require 'pony'
 
 config = YAML.load(open(File.join(File.dirname(__FILE__), 'config.yml')))
 
@@ -18,13 +19,11 @@ config['projects'].each do |project_id|
   unaccepted_stories.each do |story|
     # this story should have an email sent out
     shareholder = project_members.detect{ |m| m.name == story.requested_by }
-    if shareholder.nil?
+    if shareholder.nil? or config['invalid_users'].include? shareholder.email
       # shareholder account is inactive
-      #puts "   Story #{story.name} should probably be reassigned"
       shareholder_outstanding['inactive'].push({'project_name' => project.name, 'story' => story})
     else
       shareholder_emails[shareholder.email] ||= shareholder
-      #puts "   Will email #{shareholder.email} about #{story.name}"
       shareholder_outstanding[shareholder.email].push({'project_name' => project.name, 'story' => story})
     end
   end
@@ -60,8 +59,6 @@ Stories needing acceptance:
   END
   end
   
-  # TODO Remove this before putting anywhere
-  # to = "jason.noble@primedia.com"
   stories.each do |story|
     message << ["\t[#{story['project_name']}] #{story['story'].name}", "\tURL: #{story['story'].url}"].join("\n")
     message << "\n\n"
@@ -83,13 +80,16 @@ If you have any questions, please let a member of the Ruby team know.
 Thanks,
 #{config['from']['name']}
   END
-  puts "From: #{from}"
-  puts "To: #{to}"
-  puts "Subject: #{subject}"
-  puts
-  puts message
-  puts 
-  puts "="*80
-  puts
-  #Pony.mail(:to => to, :from => from, :subject => subject, :body => message)
+  
+  # puts "From: #{from}"
+  # puts "To: #{to}"
+  # puts "Subject: #{subject}"
+  # puts
+  # puts message
+  # puts 
+  # puts "="*80
+  # puts
+  
+  Pony.mail(:to => to, :from => from, :subject => subject, :body => message)
+  puts "Sent email to #{to}"
 end

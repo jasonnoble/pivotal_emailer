@@ -2,6 +2,8 @@ token: your_pivotal_token_here # Available at https://www.pivotaltracker.com/pro
 projects:
   - project_id  # Project Name
   - project_id  # Project Name
+invalid_users: # Will send inactive email for these users as well as those inactivated in system
+  - email@domain.com # Name
 from:
   email: email@domain.com
   name: Your Ruby Dev Team
